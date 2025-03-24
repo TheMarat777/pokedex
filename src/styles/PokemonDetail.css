@@ -1,0 +1,45 @@
+.detail-page {
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1rem;
+    color: #0077cc;
+    text-decoration: none;
+  }
+  
+  .back-link:hover {
+    text-decoration: underline;
+  }
+  
+  .detail-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .detail-card img {
+    width: 150px;
+    margin-bottom: 1rem;
+  }
+  
+  .info {
+    text-align: left;
+    margin-top: 1rem;
+  }
+  
+  .stats {
+    text-align: left;
+    margin-top: 1rem;
+  }
+  
+  .stats ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
