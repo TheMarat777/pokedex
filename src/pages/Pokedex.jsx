@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import pokemonLogo from '../assets/pokemon-logo.png'
 import '../styles/Pokedex.css'
 
 function Pokedex() {
@@ -13,11 +14,9 @@ function Pokedex() {
     async function fetchData() {
       const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=1000`)
       const data = await res.json()
-
       const detailedPromises = data.results.map(pokemon =>
         fetch(pokemon.url).then(res => res.json())
       )
-
       const detailedData = await Promise.all(detailedPromises)
       setAllPokemon(detailedData)
       setPokemonList(detailedData.slice(offset, offset + limit))
@@ -34,32 +33,22 @@ function Pokedex() {
   )
 
   const getTypeColor = (type) => {
-    switch (type) {
-      case 'fire': return 'fire'
-      case 'water': return 'water'
-      case 'grass': return 'grass'
-      case 'electric': return 'electric'
-      case 'bug': return 'bug'
-      case 'normal': return 'normal'
-      case 'poison': return 'poison'
-      case 'ground': return 'ground'
-      case 'fairy': return 'fairy'
-      case 'fighting': return 'fighting'
-      case 'psychic': return 'psychic'
-      case 'rock': return 'rock'
-      case 'ghost': return 'ghost'
-      case 'dragon': return 'dragon'
-      case 'ice': return 'ice'
-      case 'steel': return 'steel'
-      case 'flying': return 'flying'
-      case 'dark': return 'dark'
-      default: return 'default'
+    const colors = {
+      fire: 'fire', water: 'water', grass: 'grass', electric: 'electric',
+      bug: 'bug', normal: 'normal', poison: 'poison', ground: 'ground',
+      fairy: 'fairy', fighting: 'fighting', psychic: 'psychic', rock: 'rock',
+      ghost: 'ghost', dragon: 'dragon', ice: 'ice', steel: 'steel',
+      flying: 'flying', dark: 'dark'
     }
+    return colors[type] || 'default'
   }
 
   return (
     <div className="pokedex-page">
-      <h1>Pokedex</h1>
+      <div className="header">
+        <img src={pokemonLogo} alt="Pokémon Logo" className="pokemon-logo" />
+        <h1 className="main-title">Pokédex</h1>
+      </div>
 
       <input
         type="text"
@@ -73,7 +62,6 @@ function Pokedex() {
         {filteredPokemonList.slice(offset, offset + limit).map(pokemon => {
           const mainType = pokemon.types[0].type.name
           const cardClass = `pokemon-card ${getTypeColor(mainType)}`
-
           return (
             <Link to={`/pokemon/${pokemon.name}`} className={cardClass} key={pokemon.id}>
               <div className="pokemon-number">#{pokemon.id}</div>
